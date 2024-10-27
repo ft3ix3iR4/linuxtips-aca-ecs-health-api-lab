@@ -1,5 +1,4 @@
 module "water" {
-  # source = "github.com/msfidelis/linuxtips-curso-containers-ecs-service-module?ref=v1.3.1"
   source = "../linuxtips-aca-ecs-service-module/"
   # source = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.0"
 
