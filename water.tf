@@ -1,0 +1,1 @@
+source = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.0"
