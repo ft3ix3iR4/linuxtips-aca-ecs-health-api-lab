@@ -1,6 +1,6 @@
 module "recommendations" {
-  # source = "github.com/msfidelis/linuxtips-curso-containers-ecs-service-module?ref=v1.3.1"
-  source       = "/Users/matheus/Workspace/linuxtips/linuxtips-curso-containers-ecs-service-module"
+  # source = "../linuxtips-aca-ecs-service-module/"
+  source       = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module/releases/tag/v1.3.1"
   region       = var.region
   cluster_name = var.cluster_name
 
@@ -15,13 +15,8 @@ module "recommendations" {
 
   container_image = "fidelissauro/recommendations-grpc-service:latest"
 
-  // Service Connect
-  use_service_connect  = true
-  service_protocol     = "grpc"
-  service_connect_name = data.aws_ssm_parameter.service_connect_name.value
-  service_connect_arn  = data.aws_ssm_parameter.service_connect_arn.value
-
-  use_lb = false
+  service_listener = data.aws_ssm_parameter.listener_internal.value
+  alb_arn          = data.aws_ssm_parameter.alb_internal.value
 
   service_task_execution_role = aws_iam_role.main.arn
 
@@ -55,20 +50,16 @@ module "recommendations" {
     },
     {
       name  = "PROTEINS_SERVICE_ENDPOINT"
-      value = "nutrition-proteins.linuxtips-ecs-cluster.local:30000"
+      value = "nutrition-proteins.linuxtips-ecs-cluster.discovery.com:30000"
     },
     {
       name  = "WATER_SERVICE_ENDPOINT"
-      value = "nutrition-water.linuxtips-ecs-cluster.local:30000"
+      value = "nutrition-water.linuxtips-ecs-cluster.discovery.com:30000"
     },
     {
       name  = "CALORIES_SERVICE_ENDPOINT"
-      value = "nutrition-calories.linuxtips-ecs-cluster.local:30000"
+      value = "nutrition-calories.linuxtips-ecs-cluster.discovery.com:30000"
     },
-    {
-      name  = "version"
-      value = timestamp()
-    }
   ]
 
   vpc_id = data.aws_ssm_parameter.vpc.value
