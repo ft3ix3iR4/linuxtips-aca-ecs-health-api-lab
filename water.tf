@@ -1,7 +1,6 @@
 module "water" {
   source = "../../linuxtips-aca-ecs-service-module/"
 #   source = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.0"
-  module"
   region       = var.region
   cluster_name = var.cluster_name
 
