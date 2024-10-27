@@ -1,6 +1,6 @@
 module "recommendations" {
   # source = "../linuxtips-aca-ecs-service-module/"
-  source       = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module/releases/tag/v1.3.1"
+  source       = "https://github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module/releases/tag/v1.3.1"
   region       = var.region
   cluster_name = var.cluster_name
 
