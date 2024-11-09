@@ -1,6 +1,6 @@
 module "health_api" {
-  # source = "../linuxtips-aca-ecs-service-module/"
-  source       = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.1"
+  source = "../linuxtips-aca-ecs-service-module/"
+  # source       = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.1"
   region       = var.region
   cluster_name = var.cluster_name
 
@@ -14,6 +14,12 @@ module "health_api" {
   service_task_count = 1
 
   container_image = "fidelissauro/health-api:latest"
+
+  // Service Connect
+  use_service_connect  = true
+  service_protocol     = "http"
+  service_connect_name = data.aws_ssm_parameter.service_connect_name.value
+  service_connect_arn  = data.aws_ssm_parameter.service_connect_arn.value
 
   service_listener = data.aws_ssm_parameter.listener.value
   alb_arn          = data.aws_ssm_parameter.alb.value

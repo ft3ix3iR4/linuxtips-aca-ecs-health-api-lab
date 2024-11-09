@@ -1,6 +1,6 @@
 module "recommendations" {
-  # source = "../linuxtips-aca-ecs-service-module/"
-  source       = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.1"
+  source = "../linuxtips-aca-ecs-service-module/"
+  # source       = "github.com/ft3ix3iR4/linuxtips-aca-ecs-service-module?ref=v1.3.1"
   region       = var.region
   cluster_name = var.cluster_name
 
@@ -15,8 +15,15 @@ module "recommendations" {
 
   container_image = "fidelissauro/recommendations-grpc-service:latest"
 
-  service_listener = data.aws_ssm_parameter.listener_internal.value
-  alb_arn          = data.aws_ssm_parameter.alb_internal.value
+  // Service Connect
+  use_service_connect  = true
+  service_protocol     = "grpc"
+  service_connect_name = data.aws_ssm_parameter.service_connect_name.value
+  service_connect_arn  = data.aws_ssm_parameter.service_connect_arn.value
+
+  use_lb = false
+  # service_listener = data.aws_ssm_parameter.listener_internal.value
+  # alb_arn          = data.aws_ssm_parameter.alb_internal.value
 
   service_task_execution_role = aws_iam_role.main.arn
 
