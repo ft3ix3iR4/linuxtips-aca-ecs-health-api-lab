@@ -36,6 +36,8 @@ module "health_api" {
     port                = 8080
   }
 
+  deployment_controller = "CODE_DEPLOY"
+
   service_launch_type = [
     {
       capacity_provider = "FARGATE_SPOT"
