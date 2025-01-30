@@ -16,7 +16,7 @@ module "health_api" {
   container_image = "fidelissauro/health-api:latest"
 
   // Service Connect
-  use_service_connect  = true
+  use_service_connect  = false
   service_protocol     = "http"
   service_connect_name = data.aws_ssm_parameter.service_connect_name.value
   service_connect_arn  = data.aws_ssm_parameter.service_connect_arn.value
@@ -36,14 +36,14 @@ module "health_api" {
     port                = 8080
   }
 
-  deployment_controller = "CODE_DEPLOY"
-
   service_launch_type = [
     {
       capacity_provider = "FARGATE_SPOT"
       weight            = 100
     }
   ]
+
+  deployment_controller = "CODE_DEPLOY"
 
   service_hosts = [
     # "health.linuxtips.demo"
